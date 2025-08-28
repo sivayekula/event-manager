@@ -1,22 +1,10 @@
 "use client";
 import { gql, useQuery } from "@apollo/client";
 import { EventCard } from "../../components/EventCard";
-
-const EVENTS = gql`
-  query Events {
-    events {
-      id
-      title
-      date
-      attendeeCount
-      tags { id name }
-    }
-  }
-`;
+import { EVENTS } from "../../graphql/query";
 
 export default function EventsPage() {
   const { data, loading, error, refetch } = useQuery(EVENTS);
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-600">Error: {error.message}</div>;
 

@@ -1,40 +1,9 @@
 "use client";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
 import { Formik, Form, Field } from "formik";
+import { ADD_ATTENDEE, EVENT, REMOVE_ATTENDEE } from "../../../graphql/query";
 
-const EVENT = gql`
-  query Event($id: ID!) {
-    event(id: $id) {
-      id
-      title
-      date
-      attendeeCount
-      tags { id name }
-      attendees { id name email }
-    }
-  }
-`;
-
-const ADD_ATTENDEE = gql`
-  mutation AddAttendee($input: AddAttendeeInput!) {
-    addAttendee(input: $input) {
-      id
-      attendeeCount
-      attendees { id name email }
-    }
-  }
-`;
-
-const REMOVE_ATTENDEE = gql`
-  mutation RemoveAttendee($eventId: ID!, $attendeeId: ID!) {
-    removeAttendee(eventId: $eventId, attendeeId: $attendeeId) {
-      id
-      attendeeCount
-      attendees { id name email }
-    }
-  }
-`;
 
 export default function EventDetailPage() {
   const params = useParams();

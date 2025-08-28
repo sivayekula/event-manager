@@ -1,4 +1,3 @@
-
 import { gql } from "@apollo/client";
 
 export const LOGIN = gql`
@@ -10,7 +9,7 @@ export const LOGIN = gql`
   }
 `;
 
-const CREATE_EVENT = gql`
+export const CREATE_EVENT = gql`
   mutation CreateEvent($input: CreateEventInput!) {
     createEvent(input: $input) { id }
   }

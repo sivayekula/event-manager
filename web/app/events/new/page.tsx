@@ -1,8 +1,10 @@
 "use client";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
+import { CREATE_EVENT } from "../../../graphql/mutations";
+import { useAuthStore } from "../../store/useAuthStore";
 
 
 
@@ -13,6 +15,7 @@ const schema = Yup.object({
 });
 
 export default function NewEventPage() {
+  let user = useAuthStore((state) => state.user);
   const [createEvent, { loading }] = useMutation(CREATE_EVENT);
   const router = useRouter();
 
@@ -33,7 +36,7 @@ export default function NewEventPage() {
                   title: values.title,
                   date: values.date,
                   tagNames: tags,
-                  creatorId: "seeded-later" // replaced on server by seed user validation
+                  creatorId: user?.id  // replaced on server by seed user validation
                 }
               }
             });
